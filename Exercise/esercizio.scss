@@ -1,0 +1,67 @@
+@import "./partials/resets";
+@import "./partials/colors";
+@import "./partials/buttons";
+@import "./partials/spacings";
+@import "./partials/fonts";
+@import "./partials/mixin";
+
+header {
+  font-family: $font-family;
+  margin-inline: 15%;
+  nav {
+    display: flex;
+    align-items: center;
+    background-color: rgba(119, 136, 153, 0.342);
+    img {
+      width: 80px;
+    }
+    ul {
+      padding-left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+    li {
+      display: inline-block;
+      padding-inline: 20px;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+main {
+  font-family: $font-family;
+  margin-inline: 15%;
+  .hero {
+    display: flex;
+    background-color: #640fc57c;
+  }
+  .hero img {
+    width: 400px;
+    @include floating($optional-border: 2px solid white);
+    @include fadeIn(hero, 4s, 0s);
+  }
+  .hero-text {
+    margin-inline: 10px;
+    @include fadeIn(hero, 4s, 0s);
+  }
+  h1 {
+    @include titleBig(20px);
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .cards {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cards img {
+    width: 250px;
+    @include floating(20px, 0px 5px 10px, none);
+  }
+}

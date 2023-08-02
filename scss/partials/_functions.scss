@@ -1,0 +1,12 @@
+// @mixin dynamicHeight($height, $padding) {
+//   width: 100px;
+//   display: inline-block;
+//   height: $height - $padding;
+//   background-color: black;
+//   vertical-align: bottom;
+//   padding: $padding;
+// }
+
+@function dynamicHeight($height, $padding) {
+  @return $height - $padding;
+}

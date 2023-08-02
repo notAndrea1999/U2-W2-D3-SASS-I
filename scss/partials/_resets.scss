@@ -1,0 +1,10 @@
+body {
+  margin: $m-0;
+
+  // nesting di proprietà css combinate
+  font: {
+    family: "Verdana", sans-serif;
+    weight: 500;
+    size: 20px;
+  }
+}

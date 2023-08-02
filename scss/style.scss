@@ -1,0 +1,240 @@
+// 1) VARIABILI IN SASS (vedi colors.scss, margins.scss)
+@import "./partials/margins";
+@import "./partials/colors";
+@import "./partials/mixins";
+@import "./partials/functions";
+
+// blocchi di codice separato dal principale (body, footer... ecc)
+@import "./partials/resets";
+@import "./partials/footer";
+
+// main {}
+
+// main div {
+//   border: 1px solid salmon;
+// }
+
+// main div ul li a {
+//   color: red;
+//   text-decoration: none;
+// }
+
+// 2) NESTING - Selettori annidati (nidificati)
+
+// selettori vuoti non li ritroveremo nella versione compilata
+div {
+}
+
+// mentre errori, impediscono la ri-generazione del foglio css compilato (il browser non riceverà le ultime modifiche, fino alla risoluzione degli errori)
+// div } - o qualsiasi altro tipo di errore di sintassi.
+
+// da questo momento potreste usare una struttura annidata per lavorare in maniera più efficente e controllata
+main {
+  margin-inline: 16px;
+  div {
+    border: 2px solid salmon;
+    ul {
+      //   padding-inline-start: 0;
+      list-style: none;
+      li {
+        padding-inline: $mx-4;
+
+        &::marker {
+          content: "🤩";
+        }
+        a {
+          color: $color-tertiary;
+          text-decoration: none;
+        }
+      }
+    }
+
+    button {
+      font-family: inherit;
+      margin: $mx-4;
+    }
+  }
+}
+
+// 3) Parent Selector (&) - permette di rifersi al genitore di quel contesto, senza ripeterlo.
+
+.main-title {
+  font: {
+    family: inherit;
+    size: 2em;
+  }
+
+  &:hover {
+    color: aqua;
+  }
+
+  &::before {
+    content: "=>>";
+    color: $color-primary;
+  }
+
+  @media (min-width: 768px) {
+    color: red;
+  }
+
+  @media (min-width: 992px) {
+    color: blue;
+  }
+}
+
+section {
+  counter-increment: sectionCounter;
+  padding-inline: 1rem;
+  h3 {
+    font-weight: 100;
+    &::before {
+      content: counter(sectionCounter) ". ";
+    }
+  }
+}
+
+// 4) EXTEND (@extend) - è in grado di riprendere tutto un blocco precedente di una classe/id/elemento
+
+.title-2 {
+  @extend .main-title;
+
+  &::before {
+    color: red;
+  }
+}
+// 5) PLACEHOLDER - serve ad incorporare un blocco CSS che
+
+// rispetto ad estendere elementi esistenti, andremo a creare un blocco che applicheremo a tutti successivamente
+// il blocco da solo "non esiste"
+
+// .btn-1 {
+//   background-color: black;
+//   color: white;
+//   padding: 0.25rem 0.75rem;
+//   border: 2px solid rgb(101, 101, 101);
+//   border-radius: 4px;
+// }
+
+// .btn-2 {
+//   @extend .btn-1;
+//   border-color: red;
+// }
+// .btn-3 {
+//   @extend .btn-1;
+//   border-color: green;
+// }
+
+// il placeholder da solo non esisterà nel css
+%main-btn {
+  background-color: black;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid transparent;
+  border-radius: 4px;
+}
+
+.btn-1 {
+  @extend %main-btn;
+  border-color: rgb(101, 101, 101);
+}
+
+.btn-2 {
+  @extend %main-btn;
+  border-color: rgb(255, 0, 0);
+}
+
+.btn-3 {
+  @extend %main-btn;
+  border-color: rgb(0, 64, 255);
+}
+
+// 6) MIXINS - blocco di codice che può generarsi anche con valori (o parametri) dinamici
+
+.box-1 {
+  @include customBox(blue);
+}
+.box-2 {
+  @include customBox(red, 5px);
+}
+.box-3 {
+  @include customBox(green, 20px, yellow);
+}
+
+// in JS l'interpolazione di stringa si faceva con: `${nomeVar} più altre cose...`
+// 7) INTERPOLAZIONE DI VALORE #{} (vedi _mixins.scss)
+
+.box-4 {
+  @include dynamicBox(200px, #f00, color);
+}
+.box-5 {
+  @include dynamicBox(200px, url(https://images.unsplash.com/photo-1682686581498-5e85c7228119?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80), image);
+}
+
+// 8) FUNZIONI - a differenza dei mixins, una funzione in SASS è pensata per ritornare un singolo valore computato invece di un intero blocco css
+.function-ex {
+  // @include dynamicHeight(200px, 30px);
+  width: 100px;
+  display: inline-block;
+  height: dynamicHeight(300px, 20px);
+  background-color: black;
+  vertical-align: bottom;
+  padding: 20px;
+}
+
+.function-ex2 {
+  min-height: dynamicHeight(200px, 50px);
+  width: 100px;
+  display: inline-block;
+  background-color: black;
+  vertical-align: bottom;
+  padding: 20px;
+}
+
+// 9) CICLO FOR
+
+// @for $contatore from 0 to 5 <start> to <end> "to" rappresenta il valroe con <end> ESCLUSO
+// @for $contatore from 0 through 5 <start> to <end> "to" rappresenta il valroe con <end> INCLUSO
+
+@for $i from 1 through 5 {
+  .custom-pl-#{$i} {
+    padding-left: $i * 10px;
+  }
+}
+
+// 10) CICLO EACH
+
+// datatype Lista (list)
+$colorKeys: red, green, blue, yellow, purple, orange;
+
+// la variabile $elem acquisirà come valore uno dei colori della lista, uno dopo l'altro
+@each $elem in $colorKeys {
+  .box-#{$elem} {
+    background-color: $elem;
+  }
+}
+
+// datatype Map
+
+$sizes: (
+  xs: 10px,
+  sm: 20px,
+  md: 30px,
+  lg: 120px
+);
+
+// nel caso delle mappe ci servono due variabili, una per la chiave e una per il valore degli elementi della mappa
+// n.b. se usassimo un solo valore chiamato $elem per esempio, saremmo solo in grado di ricevere la chiave e non avremmo accesso al valore
+
+// questo genererà 4 classi con padding-inline-*
+@each $key, $value in $sizes {
+  .padding-inline-#{$key} {
+    padding-inline: $value;
+  }
+}
+
+// questo genererà 4 classi con padding-block-*
+@each $key, $value in $sizes {
+  .padding-block-#{$key} {
+    padding-block: $value;
+  }
+}

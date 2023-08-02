@@ -1,0 +1,25 @@
+@mixin customBox($mainColor, $radius: 10px, $secondaryColor: white) {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  vertical-align: bottom;
+  border-radius: $radius;
+  border: 2px solid $secondaryColor;
+  color: lighten($mainColor, 35%);
+  background-color: $mainColor;
+  box-shadow: 0 3px 30px darken($mainColor, 15%);
+}
+
+@mixin dynamicBox($size, $val, $property) {
+  width: $size;
+  height: $size;
+  display: inline-block;
+  // INTERPOLAZIONE DI VALORE #{}
+  background-#{$property}: $val;
+  // con un condizionale determiniamo l'applicazione della proprietà più adeguata in quel momento
+  @if ($property == "image") {
+    background-size: cover;
+  } @else {
+    text-align: right;
+  }
+}

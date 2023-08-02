@@ -1,0 +1,9 @@
+@each $key, $value in $color-buttons {
+  .btn-#{$key} {
+    background-color: $value;
+    padding: 0.25rem;
+    margin-right: 10px;
+    border-radius: 20px;
+    border: 2px solid black;
+  }
+}

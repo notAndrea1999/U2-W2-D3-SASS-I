@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap");
+$font-family: "Montserrat", sans-serif;
+
+$font-size-s: 10px;
+$font-size-m: 15px;
+$font-size-l: 20px;
+
+@mixin titleBig($font-size) {
+  font-size: $font-size;
+  font-weight: 700;
+}

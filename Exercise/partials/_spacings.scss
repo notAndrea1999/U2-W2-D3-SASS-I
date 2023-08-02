@@ -1,0 +1,32 @@
+$spacings: (
+  xs: 10px,
+  s: 20px,
+  md: 30px,
+  lg: 40px,
+  xl: 60px,
+  xxl: 100px,
+);
+
+@each $key, $value in $spacings {
+  .py-#{$key} {
+    padding-block: $value;
+  }
+}
+
+@each $key, $value in $spacings {
+  .px-#{$key} {
+    padding-inline: $value;
+  }
+}
+
+@each $key, $value in $spacings {
+  .my-#{$key} {
+    margin-block: $value;
+  }
+}
+
+@each $key, $value in $spacings {
+  .mx-#{$key} {
+    margin-inline: $value;
+  }
+}

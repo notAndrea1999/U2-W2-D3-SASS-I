@@ -1,0 +1,6 @@
+// la keword !default definisce un valore iniziale che verrà applicato solo nel caso in cui non esista una definizione precedente
+// se definiamo un $color-primary prima dell'import di questo file, il $color-primary qui di seguito non applicherà il suo valore
+
+$color-primary: palegoldenrod !default;
+$color-secondary: palevioletred !default;
+$color-tertiary: paleturquoise !default;
